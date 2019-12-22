@@ -11,8 +11,8 @@ class WelcomePage extends React.Component {
   }
   render() {
     return (
-      <div>
-        <Header title={"Welcome Page"} />
+      <div style={{ flex: 1, backgroundColor: '#2fcc70', width: '100%', height: '100%', paddingBottom: 24, paddingTop: 12 }}>
+        <Header title={"Welcome Page"}  />
         <button onClick={this.handleLogin}>Login</button>
       </div>
     );
