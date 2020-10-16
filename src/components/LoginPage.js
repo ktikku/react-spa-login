@@ -34,7 +34,9 @@ class LoginPage extends React.Component {
       this.validateCharacters(enteredUsername) &&
       this.validateCharacters(enteredPassword)
     ) {
-      return true;
+      if (enteredUsername === 'username' && enteredPassword === 'password') {
+        return true;
+      }
     }
     return false;
   }
@@ -44,6 +46,7 @@ class LoginPage extends React.Component {
       event.preventDefault();
       if (this.validateLoginForm(event)) {
         //const loginObject = fetch(`http://3c127295.ngrock.io/login`);
+        console.log(event.target);
         if (true) {
           this.setState({
             isLoggedIn: true
@@ -60,7 +63,7 @@ class LoginPage extends React.Component {
   }
 
   componentDidMount() {
-    if(sessionStorage.getItem('isAuth') === "true") {
+    if (sessionStorage.getItem('isAuth') === "true") {
       this.props.history.push("/dashboard");
     }
   }
@@ -72,32 +75,33 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div style={{ flex: 1, backgroundColor: '#2fcc70', width: '100%', height: '100%', paddingBottom: 24, paddingTop: 12 }}>
-      <AuthConsumer>
-        {({ isAuth, login, logout }) => (
-          <div style={{ flex: 1, backgroundColor: '#2fcc70', width: '100%', height: '100%' }}>
-            <Header title={"Login Page"} style={{ fontSize: 14 }} />
-            <div>
-              <form onSubmit={
-                (event) => {
-                  this.handleLoginAction(event, login)} 
-                  } >
-                <label>Username:</label>
-                <br />
-                <input type="text" name="username" style={{ borderRadius: 4, marginTop: 4, marginBottom: 12 }} />
-                <br />
-                <label>Password:</label>
-                <br />
-                <input type="password" name="password" style={{ borderRadius: 4, marginTop: 4, marginBottom: 12 }} />
-                <br />
-                <div style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8, marginBottom: 12  }}>
-                <button type="submit" style={{ marginRight: 12 }}> Login </button>
-                <button onClick={this.cancelLoginAction}>Cancel</button>
-                </div>
-              </form>
+        <AuthConsumer>
+          {({ isAuth, login, logout }) => (
+            <div style={{ flex: 1, backgroundColor: '#2fcc70', width: '100%', height: '100%' }}>
+              <Header title={"Login Page"} style={{ fontSize: 14 }} />
+              <div>
+                <form onSubmit={
+                  (event) => {
+                    this.handleLoginAction(event, login)
+                  }
+                } >
+                  <label>Username:</label>
+                  <br />
+                  <input type="text" name="username" style={{ borderRadius: 4, marginTop: 4, marginBottom: 12 }} />
+                  <br />
+                  <label>Password:</label>
+                  <br />
+                  <input type="password" name="password" style={{ borderRadius: 4, marginTop: 4, marginBottom: 12 }} />
+                  <br />
+                  <div style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8, marginBottom: 12 }}>
+                    <button type="submit" style={{ marginRight: 12 }}> Login </button>
+                    <button onClick={this.cancelLoginAction}>Cancel</button>
+                  </div>
+                </form>
+              </div>
             </div>
-          </div>
-        )}
-      </AuthConsumer>
+          )}
+        </AuthConsumer>
       </div>
     );
   }
